@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">StarWarsChallenge</string>
+    <string name="search_query_hint">Enter character name</string>
+    <string name="character_birth_year_text">Birth year:</string>
+    <string name="character_height_text">Character height:</string>
+    <string name="character_species_text">Species name:</string>
+    <string name="character_languages_text">Languages:</string>
+    <string name="loading">Loading…</string>
+    <string name="planet_information_text">Planet Information</string>
+    <string name="planet_name_text">Planet name:</string>
+    <string name="planet_population_text">Planet population:</string>
+    <string name="not_applicable">n/a</string>
+    <string name="film_information_text">Film Information</string>
+</resources>

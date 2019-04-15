@@ -7,6 +7,7 @@ import michaelborisov.starwarschallenge.character.search.domain.LoadCharacters
 import michaelborisov.starwarschallenge.character.search.view.CharacterSearchView
 import michaelborisov.starwarschallenge.character.search.viewmodel.CharacterSearchViewModel
 import michaelborisov.starwarschallenge.datamanagement.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.utils.PresenterConfig
 import net.grandcentrix.thirtyinch.TiPresenter
 import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
 import java.util.concurrent.TimeUnit
@@ -23,6 +24,11 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
     @Inject
     lateinit var apiHelper: RestStarWarsApiHelper
 
+    @Inject
+    lateinit var presenterConfig: PresenterConfig
+
+    var lastQuery = "-1"
+
     lateinit var viewModel: CharacterSearchViewModel
     override fun onAttachView(view: CharacterSearchView) {
         super.onAttachView(view)
@@ -33,22 +39,36 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
 
     private fun subscribeToUiEvents(view: CharacterSearchView) {
         handler.manageViewDisposable(view.getSearchQueryObservable()
-            .debounce(300, TimeUnit.MILLISECONDS)
-            //.filter { query -> query.length > 1 }
+            .debounce(presenterConfig.textInputChangeDebounce, TimeUnit.MILLISECONDS)
+            .filter { lastQuery != it.toString() }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext { view.toggleLoadingAndRecyclerViewVisibility(false) }
+            .doOnNext { lastQuery = it.toString() }
             .observeOn(Schedulers.computation())
             .flatMap {
                 LoadCharacters(apiHelper).execute(it.toString()).toObservable()
             }
-            .subscribe {
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
                 viewModel.characters.postValue(it)
+                view.toggleLoadingAndRecyclerViewVisibility(true)
+            }
+            .subscribe {
+
+                if (it.isEmpty()) {
+                    view.toggleNothingFoundTextVisibility(true)
+                } else {
+                    view.toggleNothingFoundTextVisibility(false)
+                }
             }
 
         )
 
         handler.manageViewDisposable(view.getOnCharacterClickObservable()
-            .debounce(200, TimeUnit.MILLISECONDS)
+            .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                view.hideSoftKeyBoard()
                 view.showCharacterDetailFragment(it)
             }
         )

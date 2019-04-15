@@ -14,4 +14,10 @@ interface CharacterSearchView : TiView {
     fun getOnCharacterClickObservable(): Observable<Character>
 
     fun showCharacterDetailFragment(character: Character)
+
+    fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean)
+
+    fun toggleNothingFoundTextVisibility(isVisible: Boolean)
+
+    fun hideSoftKeyBoard()
 }

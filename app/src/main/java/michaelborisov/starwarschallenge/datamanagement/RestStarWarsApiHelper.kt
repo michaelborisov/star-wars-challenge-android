@@ -5,7 +5,7 @@ import io.reactivex.schedulers.Schedulers
 import michaelborisov.starwarschallenge.*
 import javax.inject.Inject
 
-class RestStarWarsApiHelper @Inject constructor(): ApiHelper {
+class RestStarWarsApiHelper @Inject constructor() : ApiHelper {
 
     private var apiService: StarWarsWorldApiService =
         StarWarsWorldApiService.create()
@@ -16,7 +16,7 @@ class RestStarWarsApiHelper @Inject constructor(): ApiHelper {
             .flatMap {
                 Single.create<List<Character>> { emitter ->
                     if (it.count == 0) {
-                        emitter.onSuccess(ArrayList<Character>())
+                        emitter.onSuccess(ArrayList())
                     }
                     emitter.onSuccess(it.results)
                 }

@@ -32,9 +32,9 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     @Inject
     lateinit var presenterConfig: PresenterConfig
 
-    lateinit var currentCharacter: Character
+    private lateinit var currentCharacter: Character
 
-    lateinit var viewModel: CharacterDetailViewModel
+    private lateinit var viewModel: CharacterDetailViewModel
 
     override fun onAttachView(view: CharacterDetailView) {
         super.onAttachView(view)
@@ -101,7 +101,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                 .execute(character.films)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { view.toggleLoadingAndRecyclerViewVisibility(true) }
-                .subscribe({ it ->
+                .subscribe({
                     viewModel.filmDetails.postValue(it)
                     if (it.isEmpty()) {
                         view.toggleNothingFoundTextVisibility(true)
@@ -123,7 +123,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                 .flatMap {
                     LoadPlanetInfo(apiHelper).execute(it)
                 }
-                .subscribe({ it ->
+                .subscribe({
                     viewModel.planetNames.postValue(constructPlanetNamesInfo(it))
                     viewModel.planetPopulations.postValue(constructPlanetPopulationsInfo(it))
                 }, { e -> e.printStackTrace() })
@@ -139,7 +139,8 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                     view.openFilmDetailDialog(it)
                 }, { e ->
                     view.showErrorToast()
-                    e.printStackTrace() })
+                    e.printStackTrace()
+                })
         )
     }
 }

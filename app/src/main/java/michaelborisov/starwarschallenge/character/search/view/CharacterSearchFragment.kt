@@ -77,11 +77,12 @@ class CharacterSearchFragment :
         super.onResume()
         activity?.title = getString(R.string.character_search_title)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutManager = LinearLayoutManager(activity);
-        rvSearchResults.layoutManager = layoutManager;
+        val layoutManager = LinearLayoutManager(activity)
+        rvSearchResults.layoutManager = layoutManager
         rvSearchResults.adapter = foundCharactersAdapter
         val dividerItemDecoration = DividerItemDecoration(
             rvSearchResults.context,
@@ -111,6 +112,7 @@ class CharacterSearchFragment :
             ?.commit()
     }
 
+    @CallOnMainThread
     override fun toggleNothingFoundTextVisibility(isVisible: Boolean) {
         if (isVisible) {
             tvNothingPlaceHolder.visibility = View.VISIBLE
@@ -122,6 +124,7 @@ class CharacterSearchFragment :
         }
     }
 
+    @CallOnMainThread
     override fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean) {
         if (isRecyclerVisible) {
             rvSearchResults.visibility = View.VISIBLE

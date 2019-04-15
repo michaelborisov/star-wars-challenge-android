@@ -27,57 +27,7 @@ import javax.inject.Inject
 class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDetailView>(),
     CharacterDetailView {
 
-    @CallOnMainThread
-    override fun showErrorToast() {
-        Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG)
-            .show()
-    }
-
-    override fun setActivityTitle(name: String) {
-        activity?.title = "${getString(R.string.details_text)} $name"
-    }
-
-    override fun toggleNothingFoundTextVisibility(isVisible: Boolean) {
-        if (isVisible) {
-            tvDetailNothingPlaceHolder.visibility = View.VISIBLE
-            rvDetailFilms.visibility = View.GONE
-            tvDetailLoadingPlaceHolder.visibility = View.GONE
-        } else {
-            rvDetailFilms.visibility = View.VISIBLE
-            tvDetailNothingPlaceHolder.visibility = View.GONE
-        }
-    }
-
-    override fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean) {
-        if (isRecyclerVisible) {
-            rvDetailFilms.visibility = View.VISIBLE
-            tvDetailLoadingPlaceHolder.visibility = View.GONE
-            tvDetailNothingPlaceHolder.visibility = View.GONE
-        } else {
-            tvDetailLoadingPlaceHolder.visibility = View.VISIBLE
-            rvDetailFilms.visibility = View.GONE
-            tvDetailNothingPlaceHolder.visibility = View.GONE
-        }
-    }
-
-    private var onFilmClickPublishRelay = PublishRelay.create<Film>()
-
-    override fun getOnFilmClickObservable(): Observable<Film> {
-        return onFilmClickPublishRelay
-    }
-
-    private val filmDetailDialogTag = "FilmDetailDialogTag"
-
-    override fun openFilmDetailDialog(film: Film) {
-        val ft = activity?.supportFragmentManager?.beginTransaction()
-        val prev = activity?.supportFragmentManager?.findFragmentByTag(filmDetailDialogTag)
-        if (prev != null) {
-            ft?.remove(prev)
-        }
-        ft?.addToBackStack(null)
-        val dialogFragment = FilmDetailDialogFragment.newInstance(film)
-        dialogFragment.show(ft, filmDetailDialogTag)
-    }
+    override lateinit var viewModel: CharacterDetailViewModel
 
     @Inject
     lateinit var presenter: CharacterDetailPresenter
@@ -86,19 +36,16 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
 
     private val filmItemsAdapter = FilmDetailAdapter()
 
+    private var onFilmClickPublishRelay = PublishRelay.create<Film>()
+
+    override fun getOnFilmClickObservable(): Observable<Film> {
+        return onFilmClickPublishRelay
+    }
+
     override fun providePresenter(): CharacterDetailPresenter {
         return presenter
     }
 
-    companion object {
-        fun newInstance(character: Character): CharacterDetailFragment {
-            val fragment = CharacterDetailFragment()
-            fragment.character = character
-            return fragment
-        }
-    }
-
-    override lateinit var viewModel: CharacterDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initializeInjector()
@@ -127,11 +74,16 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
         rvDetailFilms.addItemDecoration(dividerItemDecoration)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CharacterDetailViewModel::class.java)
         viewModel.character = character
 
+        subscribeToUiUpdates()
+    }
+
+    private fun subscribeToUiUpdates() {
         viewModel.charaterName.observe(this, Observer {
             tvDetailCharacterName.text = it
         })
@@ -185,7 +137,63 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
         viewModel.filmDetails.observe(this, Observer {
             filmItemsAdapter.replaceEntries(it as ArrayList<Film>)
         })
-        // TODO: Use the ViewModel
+    }
+
+    private val filmDetailDialogTag = "FilmDetailDialogTag"
+
+    override fun openFilmDetailDialog(film: Film) {
+        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
+        val previousFragment = activity?.supportFragmentManager?.findFragmentByTag(filmDetailDialogTag)
+        if (previousFragment != null) {
+            fragmentTransaction?.remove(previousFragment)
+        }
+        fragmentTransaction?.addToBackStack(null)
+        val filmDialogFragment = FilmDetailDialogFragment.newInstance(film)
+        filmDialogFragment.show(fragmentTransaction, filmDetailDialogTag)
+    }
+
+    companion object {
+        fun newInstance(character: Character): CharacterDetailFragment {
+            val fragment = CharacterDetailFragment()
+            fragment.character = character
+            return fragment
+        }
+    }
+
+    @CallOnMainThread
+    override fun showErrorToast() {
+        Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG)
+            .show()
+    }
+
+    @CallOnMainThread
+    override fun setActivityTitle(name: String) {
+        activity?.title = "${getString(R.string.details_text)} $name"
+    }
+
+    @CallOnMainThread
+    override fun toggleNothingFoundTextVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            tvDetailNothingPlaceHolder.visibility = View.VISIBLE
+            rvDetailFilms.visibility = View.GONE
+            tvDetailLoadingPlaceHolder.visibility = View.GONE
+        } else {
+            rvDetailFilms.visibility = View.VISIBLE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        }
+    }
+
+    @CallOnMainThread
+    override fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean) {
+        if (isRecyclerVisible) {
+            rvDetailFilms.visibility = View.VISIBLE
+            tvDetailLoadingPlaceHolder.visibility = View.GONE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        } else {
+            tvDetailLoadingPlaceHolder.visibility = View.VISIBLE
+            rvDetailFilms.visibility = View.GONE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        }
     }
 
     private fun initializeInjector() {

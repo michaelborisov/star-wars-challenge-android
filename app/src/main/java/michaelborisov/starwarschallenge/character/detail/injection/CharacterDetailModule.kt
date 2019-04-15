@@ -1,10 +1,9 @@
-package michaelborisov.starwarschallenge.character.search.injection
+package michaelborisov.starwarschallenge.character.detail.injection
 
 import dagger.MembersInjector
 import dagger.Module
 import dagger.Provides
 import michaelborisov.starwarschallenge.character.detail.presenter.CharacterDetailPresenter
-import michaelborisov.starwarschallenge.character.search.presenter.CharacterSearchPresenter
 
 @Module
 class CharacterDetailModule {

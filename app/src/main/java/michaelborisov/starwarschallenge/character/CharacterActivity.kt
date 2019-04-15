@@ -6,8 +6,6 @@ import michaelborisov.starwarschallenge.R
 import michaelborisov.starwarschallenge.character.search.view.CharacterSearchFragment
 
 
-
-
 class CharacterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -33,7 +33,7 @@ interface StarWarsWorldApiService {
                 .baseUrl("https://swapi.co/api/")
                 .build()
 
-            return retrofit.create(StarWarsWorldApiService::class.java);
+            return retrofit.create(StarWarsWorldApiService::class.java)
         }
     }
 }

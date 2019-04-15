@@ -1,16 +1,16 @@
 package michaelborisov.starwarschallenge.character.detail.adapter
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import michaelborisov.starwarschallenge.Character
 import michaelborisov.starwarschallenge.Film
 import michaelborisov.starwarschallenge.R
 
 
-class FilmDetailAdapter() :
+class FilmDetailAdapter :
     RecyclerView.Adapter<FilmDetailAdapter.FilmDetailViewHolder>() {
 
     private var films = ArrayList<Film>()
@@ -35,6 +35,7 @@ class FilmDetailAdapter() :
         return films.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FilmDetailViewHolder, position: Int) {
         val film = films[position]
         holder.filmTitle.text = film.title

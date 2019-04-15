@@ -1,15 +1,14 @@
 package michaelborisov.starwarschallenge.character.detail.domain
 
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import michaelborisov.starwarschallenge.Species
 import michaelborisov.starwarschallenge.datamanagement.ApiHelper
 
 class LoadSpeciesInfo(private val apiHelper: ApiHelper) {
 
-    fun execute(species: List<String>): Single<List<Species>> {
+    fun execute(speciesUrls: List<String>): Single<List<Species>> {
         val requests = mutableListOf<Single<Species>>()
-        for (sp in species) {
+        for (sp in speciesUrls) {
             requests.add(apiHelper.getSpeciesInfo(getSpeciesIdFromUrl(sp)))
         }
 

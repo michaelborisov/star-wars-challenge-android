@@ -2,7 +2,6 @@ package michaelborisov.starwarschallenge.character.detail.domain
 
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.Film
-import michaelborisov.starwarschallenge.Planet
 import michaelborisov.starwarschallenge.datamanagement.ApiHelper
 
 class LoadFilmInfo(private val apiHelper: ApiHelper) {

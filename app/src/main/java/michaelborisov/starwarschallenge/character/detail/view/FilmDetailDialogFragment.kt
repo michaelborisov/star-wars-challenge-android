@@ -14,13 +14,9 @@ class FilmDetailDialogFragment : DialogFragment() {
 
     private lateinit var film: Film
 
-    lateinit var filmTitle: TextView
-    lateinit var filmDate: TextView
-    lateinit var openingCrawl: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var filmTitle: TextView
+    private lateinit var filmDate: TextView
+    private lateinit var openingCrawl: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.character_detail_film_dialog, container, false)

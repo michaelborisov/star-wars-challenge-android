@@ -27,9 +27,10 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
     @Inject
     lateinit var presenterConfig: PresenterConfig
 
-    var lastQuery = "-1"
+    private var lastQuery = "-1"
 
-    lateinit var viewModel: CharacterSearchViewModel
+    private lateinit var viewModel: CharacterSearchViewModel
+
     override fun onAttachView(view: CharacterSearchView) {
         super.onAttachView(view)
         viewModel = view.viewModel
@@ -63,6 +64,7 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
             }, { e ->
                 view.showErrorToast()
                 e.printStackTrace()
+                view.toggleNothingFoundTextVisibility(true)
             })
 
         )

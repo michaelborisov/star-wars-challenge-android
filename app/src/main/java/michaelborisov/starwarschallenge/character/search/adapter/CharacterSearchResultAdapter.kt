@@ -9,7 +9,7 @@ import michaelborisov.starwarschallenge.Character
 import michaelborisov.starwarschallenge.R
 
 
-class CharacterSearchResultAdapter() :
+class CharacterSearchResultAdapter :
     RecyclerView.Adapter<CharacterSearchResultAdapter.CharacterSearchResultViewHolder>() {
 
     private var foundCharacters = ArrayList<Character>()

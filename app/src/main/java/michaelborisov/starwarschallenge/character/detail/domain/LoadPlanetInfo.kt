@@ -11,7 +11,7 @@ class LoadPlanetInfo(private val apiHelper: ApiHelper) {
         val requests = mutableListOf<Single<Planet>>()
         for (sp in species) {
             if(sp.homeworld == null){
-                return Single.create { emitter -> emitter.onSuccess(ArrayList<Planet>()) }
+                return Single.create { emitter -> emitter.onSuccess(ArrayList()) }
             }
             requests.add(apiHelper.getPlanetInfo(getPlanetIdFromUrl(sp.homeworld)))
         }

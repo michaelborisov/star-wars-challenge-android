@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/standard_margin"
-        tools:context=".character.search.view.CharacterSearchFragment">
+        tools:context=".ui.character.search.view.CharacterSearchFragment">
 
     <EditText
             android:id="@+id/etSearchQuery"

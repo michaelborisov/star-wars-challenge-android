@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.character_detail_fragment.*
 import michaelborisov.starwarschallenge.Character
 import michaelborisov.starwarschallenge.Film
@@ -19,8 +21,54 @@ import michaelborisov.starwarschallenge.character.detail.viewmodel.CharacterDeta
 import net.grandcentrix.thirtyinch.TiFragment
 import javax.inject.Inject
 
+
 class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDetailView>(),
     CharacterDetailView {
+    override fun setActivityTitle(name: String) {
+        activity?.title = "${getString(R.string.details_text)} $name"
+    }
+
+    override fun toggleNothingFoundTextVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            tvDetailNothingPlaceHolder.visibility = View.VISIBLE
+            rvDetailFilms.visibility = View.GONE
+            tvDetailLoadingPlaceHolder.visibility = View.GONE
+        } else {
+            rvDetailFilms.visibility = View.VISIBLE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        }
+    }
+
+    override fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean) {
+        if (isRecyclerVisible) {
+            rvDetailFilms.visibility = View.VISIBLE
+            tvDetailLoadingPlaceHolder.visibility = View.GONE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        } else {
+            tvDetailLoadingPlaceHolder.visibility = View.VISIBLE
+            rvDetailFilms.visibility = View.GONE
+            tvDetailNothingPlaceHolder.visibility = View.GONE
+        }
+    }
+
+    private var onFilmClickPublishRelay = PublishRelay.create<Film>()
+
+    override fun getOnFilmClickObservable(): Observable<Film> {
+        return onFilmClickPublishRelay
+    }
+
+    private val filmDetailDialogTag = "FilmDetailDialogTag"
+
+    override fun openFilmDetailDialog(film: Film) {
+        val ft = activity?.supportFragmentManager?.beginTransaction()
+        val prev = activity?.supportFragmentManager?.findFragmentByTag(filmDetailDialogTag)
+        if (prev != null) {
+            ft?.remove(prev)
+        }
+        ft?.addToBackStack(null)
+        val dialogFragment = FilmDetailDialogFragment.newInstance(film)
+        dialogFragment.show(ft, filmDetailDialogTag)
+    }
 
     @Inject
     lateinit var presenter: CharacterDetailPresenter
@@ -59,8 +107,9 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
-        rvDetailFilms.layoutManager = layoutManager;
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        rvDetailFilms.layoutManager = layoutManager
+        filmItemsAdapter.setOnFilmClickListener(onFilmClickPublishRelay::accept)
         rvDetailFilms.adapter = filmItemsAdapter
         val dividerItemDecoration = DividerItemDecoration(
             rvDetailFilms.context,

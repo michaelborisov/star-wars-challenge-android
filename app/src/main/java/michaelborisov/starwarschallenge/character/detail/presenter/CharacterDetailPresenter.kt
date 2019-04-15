@@ -1,6 +1,7 @@
 package michaelborisov.starwarschallenge.character.detail.presenter
 
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import michaelborisov.starwarschallenge.Character
 import michaelborisov.starwarschallenge.Planet
 import michaelborisov.starwarschallenge.Species
@@ -10,8 +11,10 @@ import michaelborisov.starwarschallenge.character.detail.domain.LoadSpeciesInfo
 import michaelborisov.starwarschallenge.character.detail.view.CharacterDetailView
 import michaelborisov.starwarschallenge.character.detail.viewmodel.CharacterDetailViewModel
 import michaelborisov.starwarschallenge.datamanagement.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.utils.PresenterConfig
 import net.grandcentrix.thirtyinch.TiPresenter
 import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
@@ -26,6 +29,9 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     @Inject
     lateinit var apiHelper: RestStarWarsApiHelper
 
+    @Inject
+    lateinit var presenterConfig: PresenterConfig
+
     lateinit var currentCharacter: Character
 
     lateinit var viewModel: CharacterDetailViewModel
@@ -36,10 +42,10 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         currentCharacter = viewModel.character
 
         loadSpeciesInfo(currentCharacter)
-        loadFilmInfo(currentCharacter)
+        loadFilmInfo(view, currentCharacter)
 
         updateUiElements()
-
+        view.setActivityTitle(currentCharacter.name)
         subscribeToUiEvents(view)
     }
 
@@ -89,12 +95,19 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         return planetPopulations
     }
 
-    private fun loadFilmInfo(character: Character) {
+    private fun loadFilmInfo(view: CharacterDetailView, character: Character) {
         handler.manageViewDisposable(
             LoadFilmInfo(apiHelper)
                 .execute(character.films)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess { view.toggleLoadingAndRecyclerViewVisibility(true) }
                 .subscribe { it ->
                     viewModel.filmDetails.postValue(it)
+                    if (it.isEmpty()) {
+                        view.toggleNothingFoundTextVisibility(true)
+                    } else {
+                        view.toggleNothingFoundTextVisibility(false)
+                    }
                 }
         )
     }
@@ -114,12 +127,15 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                     viewModel.planetNames.postValue(constructPlanetNamesInfo(it))
                     viewModel.planetPopulations.postValue(constructPlanetPopulationsInfo(it))
                 }
-                .subscribe { e ->
-
-                })
+                .subscribe())
     }
 
     private fun subscribeToUiEvents(view: CharacterDetailView) {
-
+        handler.manageViewDisposable(view.getOnFilmClickObservable()
+            .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view.openFilmDetailDialog(it)
+            })
     }
 }

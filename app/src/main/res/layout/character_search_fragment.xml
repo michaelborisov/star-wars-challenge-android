@@ -16,6 +16,7 @@
             android:gravity="top"
             android:layout_marginTop="@dimen/standard_margin"
             android:hint="@string/search_query_hint"
+            android:singleLine="true"
             app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v7.widget.RecyclerView

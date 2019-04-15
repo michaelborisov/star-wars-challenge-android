@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
@@ -22,6 +23,7 @@ import michaelborisov.starwarschallenge.character.search.injection.DaggerCharact
 import michaelborisov.starwarschallenge.character.search.presenter.CharacterSearchPresenter
 import michaelborisov.starwarschallenge.character.search.viewmodel.CharacterSearchViewModel
 import net.grandcentrix.thirtyinch.TiFragment
+import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread
 import javax.inject.Inject
 
 
@@ -63,6 +65,12 @@ class CharacterSearchFragment :
 
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.character_search_fragment, container, false)
+    }
+
+    @CallOnMainThread
+    override fun showErrorToast() {
+        Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG)
+            .show()
     }
 
     override fun onResume() {

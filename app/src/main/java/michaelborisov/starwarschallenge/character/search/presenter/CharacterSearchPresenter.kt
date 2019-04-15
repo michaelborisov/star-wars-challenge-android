@@ -53,24 +53,31 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
                 viewModel.characters.postValue(it)
                 view.toggleLoadingAndRecyclerViewVisibility(true)
             }
-            .subscribe {
+            .subscribe({
 
                 if (it.isEmpty()) {
                     view.toggleNothingFoundTextVisibility(true)
                 } else {
                     view.toggleNothingFoundTextVisibility(false)
                 }
-            }
+            }, { e ->
+                view.showErrorToast()
+                e.printStackTrace()
+            })
 
         )
 
-        handler.manageViewDisposable(view.getOnCharacterClickObservable()
-            .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                view.hideSoftKeyBoard()
-                view.showCharacterDetailFragment(it)
-            }
+        handler.manageViewDisposable(
+            view.getOnCharacterClickObservable()
+                .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    view.hideSoftKeyBoard()
+                    view.showCharacterDetailFragment(it)
+                }, { e ->
+                    view.showErrorToast()
+                    e.printStackTrace()
+                })
         )
     }
 }

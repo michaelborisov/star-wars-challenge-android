@@ -20,4 +20,6 @@ interface CharacterSearchView : TiView {
     fun toggleNothingFoundTextVisibility(isVisible: Boolean)
 
     fun hideSoftKeyBoard()
+
+    fun showErrorToast()
 }

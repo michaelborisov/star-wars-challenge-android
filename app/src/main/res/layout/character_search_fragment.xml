@@ -6,7 +6,7 @@
         android:id="@+id/charactersearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/standard_margin"
         tools:context=".character.search.view.CharacterSearchFragment">
 
     <EditText
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:hint="@string/search_query_hint"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -22,7 +22,7 @@
             android:id="@+id/rvSearchResults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/standard_margin"
             app:layout_constraintTop_toBottomOf="@+id/etSearchQuery"/>
 
     <android.support.v7.widget.AppCompatTextView

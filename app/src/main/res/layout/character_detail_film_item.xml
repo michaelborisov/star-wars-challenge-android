@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/standard_margin">
 
     <TextView
             android:id="@+id/tvFilmTitle"
@@ -14,27 +14,27 @@
             android:gravity="center_horizontal"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/bigger_text_size"/>
 
     <TextView
             android:id="@+id/tvFilmDate"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="12sp"/>
+            android:textSize="@dimen/standard_text_size"/>
 
     <TextView
             android:id="@+id/tvOpeningCrawl"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textSize="12sp"
-            android:maxLength="320"/>
+            android:textSize="@dimen/standard_text_size"
+            android:maxLength="@integer/maximum_film_opening_crawl_length"/>
 
 
 </android.support.v7.widget.LinearLayoutCompat>

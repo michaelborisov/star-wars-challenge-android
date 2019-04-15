@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/standard_margin"
         tools:context=".character.detail.view.CharacterDetailFragment">
     <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -21,14 +21,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="32sp"/>
+                android:textSize="@dimen/biggest_text_size"/>
 
         <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp">
 
             <TextView
@@ -36,15 +36,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/character_birth_year_text"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/biggest_text_size"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="@dimen/standard_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailCharacterBirthDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/bigger_text_size"/>
         </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp">
 
             <TextView
@@ -61,14 +61,14 @@
                     android:text="@string/character_height_text"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"/>
+                    android:textSize="@dimen/bigger_text_size"
+                    android:layout_marginEnd="@dimen/standard_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/bigger_text_size"/>
         </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp">
 
             <TextView
@@ -84,16 +84,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/character_species_text"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/bigger_text_size"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="@dimen/standard_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailSpeciesName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/bigger_text_size"/>
         </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp">
 
             <TextView
@@ -109,16 +109,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/character_languages_text"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/bigger_text_size"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="@dimen/standard_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailLanguages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/bigger_text_size"/>
         </android.support.v7.widget.LinearLayoutCompat>
 
 
@@ -128,8 +128,8 @@
                 android:gravity="center_horizontal"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textStyle="bold"
-                android:textSize="24sp"
-                android:layout_marginTop="8dp"
+                android:textSize="@dimen/planet_information_text_size"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:textColor="@color/black"
                 android:text="@string/planet_information_text"/>
 
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp">
 
             <TextView
@@ -147,16 +147,16 @@
                     android:text="@string/planet_name_text"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="4dp"/>
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailPlanet1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="4dp"/>
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -164,15 +164,15 @@
                     android:text="@string/planet_population_text"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="4dp"/>
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailPopulation1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/standard_text_size"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 tools:layout_editor_absoluteX="0dp"
                 android:visibility="gone">
 
@@ -191,32 +191,32 @@
                     android:layout_height="wrap_content"
                     android:text="@string/planet_name_text"
                     android:textStyle="bold"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/standard_text_size"
                     android:textColor="@color/black"
-                    android:layout_marginEnd="4dp"/>
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailPlanet2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="4dp"/>
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/planet_population_text"
                     android:textStyle="bold"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="4dp"/>
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_marginEnd="@dimen/small_margin"/>
 
             <TextView
                     android:id="@+id/tvDetailPopulation2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/loading"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/standard_text_size"/>
         </android.support.v7.widget.LinearLayoutCompat>
 
 
@@ -224,10 +224,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/standard_margin"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textStyle="bold"
-                android:textSize="24sp"
+                android:textSize="@dimen/planet_information_text_size"
                 android:textColor="@color/black"
                 android:text="@string/film_information_text"/>
 

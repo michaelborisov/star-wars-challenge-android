@@ -5,13 +5,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/standard_margin">
 
     <android.support.v7.widget.LinearLayoutCompat
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="@dimen/standard_padding">
 
         <TextView
                 android:id="@+id/tvFilmTitle"
@@ -20,27 +20,26 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
-                android:textSize="32sp"
+                android:textSize="@dimen/biggest_text_size"
                 android:textColor="@color/black"/>
 
         <TextView
                 android:id="@+id/tvFilmDate"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="32sp"
+                android:textSize="@dimen/biggest_text_size"
                 android:textColor="@color/black"/>
 
         <TextView
                 android:id="@+id/tvOpeningCrawl"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                android:padding="16dp"
+                android:padding="@dimen/biggest_padding"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/bigger_text_size"/>
     </android.support.v7.widget.LinearLayoutCompat>
 </ScrollView>

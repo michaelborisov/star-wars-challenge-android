@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/standard_margin">
 
     <TextView
             android:id="@+id/tvCharacterName"
@@ -14,7 +14,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/bigger_text_size"/>
 
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -22,14 +22,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_weight="1">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/character_birth_year_text"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="@dimen/standard_margin"/>
 
         <TextView
                 android:id="@+id/tvCharacterBirthDate"

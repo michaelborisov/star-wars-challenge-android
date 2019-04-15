@@ -40,9 +40,9 @@ class FilmDetailAdapter() :
         holder.filmTitle.text = film.title
         holder.filmDate.text = film.release_date
         holder.openingCrawl.text = "${film.opening_crawl.substring(0, 300)}..."
-//        holder.itemView.setOnClickListener {
-//            clickEvent(film)
-//        }
+        holder.itemView.setOnClickListener {
+            clickEvent(film)
+        }
     }
 
     class FilmDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

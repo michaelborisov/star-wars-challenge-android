@@ -16,4 +16,5 @@
     <string name="film_information_text">Film Information</string>
     <string name="details_text">Details:</string>
     <string name="character_search_title">Character Search</string>
+    <string name="something_went_wrong">Ooops, something went wrong. Please report this problem.</string>
 </resources>

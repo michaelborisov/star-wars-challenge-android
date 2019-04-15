@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.character_detail_fragment.*
@@ -19,11 +20,19 @@ import michaelborisov.starwarschallenge.character.detail.injection.DaggerCharact
 import michaelborisov.starwarschallenge.character.detail.presenter.CharacterDetailPresenter
 import michaelborisov.starwarschallenge.character.detail.viewmodel.CharacterDetailViewModel
 import net.grandcentrix.thirtyinch.TiFragment
+import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread
 import javax.inject.Inject
 
 
 class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDetailView>(),
     CharacterDetailView {
+
+    @CallOnMainThread
+    override fun showErrorToast() {
+        Toast.makeText(activity, R.string.something_went_wrong, Toast.LENGTH_LONG)
+            .show()
+    }
+
     override fun setActivityTitle(name: String) {
         activity?.title = "${getString(R.string.details_text)} $name"
     }

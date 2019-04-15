@@ -21,4 +21,6 @@ interface CharacterDetailView : TiView {
 
     fun setActivityTitle(name: String)
 
+    fun showErrorToast()
+
 }

@@ -101,14 +101,14 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                 .execute(character.films)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { view.toggleLoadingAndRecyclerViewVisibility(true) }
-                .subscribe { it ->
+                .subscribe({ it ->
                     viewModel.filmDetails.postValue(it)
                     if (it.isEmpty()) {
                         view.toggleNothingFoundTextVisibility(true)
                     } else {
                         view.toggleNothingFoundTextVisibility(false)
                     }
-                }
+                }, { e -> e.printStackTrace() })
         )
     }
 
@@ -123,19 +123,23 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
                 .flatMap {
                     LoadPlanetInfo(apiHelper).execute(it)
                 }
-                .doOnSuccess {
+                .subscribe({ it ->
                     viewModel.planetNames.postValue(constructPlanetNamesInfo(it))
                     viewModel.planetPopulations.postValue(constructPlanetPopulationsInfo(it))
-                }
-                .subscribe())
+                }, { e -> e.printStackTrace() })
+        )
     }
 
     private fun subscribeToUiEvents(view: CharacterDetailView) {
-        handler.manageViewDisposable(view.getOnFilmClickObservable()
-            .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                view.openFilmDetailDialog(it)
-            })
+        handler.manageViewDisposable(
+            view.getOnFilmClickObservable()
+                .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    view.openFilmDetailDialog(it)
+                }, { e ->
+                    view.showErrorToast()
+                    e.printStackTrace() })
+        )
     }
 }

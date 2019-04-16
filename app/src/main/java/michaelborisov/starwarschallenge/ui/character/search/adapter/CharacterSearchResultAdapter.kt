@@ -8,7 +8,9 @@ import android.widget.TextView
 import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.R
 
-
+/**
+ * Adapter for RecyclerView used to display results of search of [Character]s
+ */
 class CharacterSearchResultAdapter :
     RecyclerView.Adapter<CharacterSearchResultAdapter.CharacterSearchResultViewHolder>() {
 
@@ -20,14 +22,11 @@ class CharacterSearchResultAdapter :
         val context = parent.context
         val inflater = LayoutInflater.from(context)
 
-        val contactView = inflater.inflate(
+        val characterView = inflater.inflate(
             R.layout.character_search_result_item, parent, false
         )
-        contactView.setOnClickListener {
 
-        }
-
-        return CharacterSearchResultViewHolder(contactView)
+        return CharacterSearchResultViewHolder(characterView)
     }
 
     override fun getItemCount(): Int {

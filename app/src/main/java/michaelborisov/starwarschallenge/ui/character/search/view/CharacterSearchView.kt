@@ -9,10 +9,19 @@ interface CharacterSearchView : TiView {
 
     val viewModel: CharacterSearchViewModel
 
+    /**
+     * Provides observable for searchQuery
+     */
     fun getSearchQueryObservable(): Observable<CharSequence>
 
+    /**
+     * Provides observable for [Character] clicks
+     */
     fun getOnCharacterClickObservable(): Observable<Character>
 
+    /**
+     * Shows new character detail fragment.
+     */
     fun showCharacterDetailFragment(character: Character)
 
     fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean)

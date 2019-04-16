@@ -12,8 +12,14 @@ interface CharacterDetailView : TiView {
 
     fun openFilmDetailDialog(film: Film)
 
+    /**
+     * Provides observable for clicking on the [Film]
+     */
     fun getOnFilmClickObservable(): Observable<Film>
 
+    /**
+     * Toggling UI elements for improving user experience
+     */
     fun toggleLoadingAndRecyclerViewVisibility(isRecyclerVisible: Boolean)
 
     fun toggleNothingFoundTextVisibility(isVisible: Boolean)

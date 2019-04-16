@@ -26,17 +26,6 @@ import javax.inject.Inject
 
 class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDetailView>(),
     CharacterDetailView {
-    override fun getFilmCategoryUrl(): String {
-        return getString(R.string.film_category_url)
-    }
-
-    override fun getSpeciesCategoryUrl(): String {
-        return getString(R.string.species_category_url)
-    }
-
-    override fun getPlanetCategoryUrl(): String {
-        return getString(R.string.planet_category_url)
-    }
 
     override lateinit var viewModel: CharacterDetailViewModel
 
@@ -205,6 +194,18 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
             rvDetailFilms.visibility = View.GONE
             tvDetailNothingPlaceHolder.visibility = View.GONE
         }
+    }
+
+    override fun getFilmCategoryUrl(): String {
+        return getString(R.string.film_category_url)
+    }
+
+    override fun getSpeciesCategoryUrl(): String {
+        return getString(R.string.species_category_url)
+    }
+
+    override fun getPlanetCategoryUrl(): String {
+        return getString(R.string.planet_category_url)
     }
 
     private fun initializeInjector() {

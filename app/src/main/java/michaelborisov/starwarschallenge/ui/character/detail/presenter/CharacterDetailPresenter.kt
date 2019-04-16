@@ -17,6 +17,9 @@ import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+/**
+ * Presenter which survives
+ */
 class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
 
     /**
@@ -28,9 +31,15 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     @Inject
     lateinit var apiHelper: RestStarWarsApiHelper
 
+    /**
+     * PresenterConfig to unify behaviour of presenters across the app.
+     */
     @Inject
     lateinit var presenterConfig: PresenterConfig
 
+    /**
+     * Helper work with urls.
+     */
     @Inject
     lateinit var urlAddressHelper: UrlAddressHelper
 
@@ -38,6 +47,9 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
 
     private lateinit var viewModel: CharacterDetailViewModel
 
+    /**
+     * Block of information loaders, required on the page.
+     */
     private lateinit var filmInfoLoader: LoadFilmInfo
 
     private lateinit var planetInfoLoader: LoadPlanetInfo
@@ -51,7 +63,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
 
         initInfoLoaders(view)
 
-        loadSpeciesInfo(currentCharacter)
+        loadSpeciesInfo(view, currentCharacter)
         loadFilmInfo(view, currentCharacter)
 
         updateUiElements()
@@ -79,12 +91,79 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         )
     }
 
+    /**
+     * Submit values which are already available to the View via ViewModel.
+     */
     private fun updateUiElements() {
         viewModel.charaterName.postValue(currentCharacter.name)
         viewModel.characterBirthYear.postValue(currentCharacter.birth_year)
         viewModel.characterHeight.postValue(constructCharacterHeightStringValue(currentCharacter))
     }
 
+    private fun loadFilmInfo(view: CharacterDetailView, character: Character) {
+        handler.manageViewDisposable(
+            filmInfoLoader
+                .execute(character.films)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess { view.toggleLoadingAndRecyclerViewVisibility(true) }
+                .subscribe({
+                    viewModel.filmDetails.postValue(it)
+                    if (it.isEmpty()) {
+                        view.toggleNothingFoundTextVisibility(true)
+                    } else {
+                        view.toggleNothingFoundTextVisibility(false)
+                    }
+                }, { e ->
+                    view.showErrorToast()
+                    e.printStackTrace()
+                })
+        )
+    }
+
+    private fun loadSpeciesInfo(view: CharacterDetailView, character: Character) {
+        handler.manageViewDisposable(
+            speciesInfoLoader
+                .execute(character.species)
+                .doOnSuccess {
+                    viewModel.speciesName.postValue(constructCharacterSpecies(it))
+                    viewModel.languages.postValue(constructCharacterLanguages(it))
+                }
+                .flatMap {
+                    val homeworlds = mutableListOf<String>()
+                    it.forEach { species ->
+                        if (species.homeworld != null) {
+                            homeworlds.add(species.homeworld)
+                        }
+                    }
+                    planetInfoLoader.execute(homeworlds)
+                }
+                .subscribe({
+                    viewModel.planetNames.postValue(constructPlanetNamesInfo(it))
+                    viewModel.planetPopulations.postValue(constructPlanetPopulationsInfo(it))
+                }, { e ->
+                    view.showErrorToast()
+                    e.printStackTrace()
+                })
+        )
+    }
+
+    private fun subscribeToUiEvents(view: CharacterDetailView) {
+        handler.manageViewDisposable(
+            view.getOnFilmClickObservable()
+                .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    view.openFilmDetailDialog(it)
+                }, { e ->
+                    view.showErrorToast()
+                    e.printStackTrace()
+                })
+        )
+    }
+
+    /**
+     * Block of helper methods for formatting for the View
+     */
     private fun constructCharacterHeightStringValue(character: Character): String {
         val stringBuilder = StringBuilder()
         stringBuilder.append(character.height).append(cmLabel)
@@ -127,54 +206,5 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
             planetPopulations.add(it.population)
         }
         return planetPopulations
-    }
-
-    private fun loadFilmInfo(view: CharacterDetailView, character: Character) {
-        handler.manageViewDisposable(
-            filmInfoLoader
-                .execute(character.films)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { view.toggleLoadingAndRecyclerViewVisibility(true) }
-                .subscribe({
-                    viewModel.filmDetails.postValue(it)
-                    if (it.isEmpty()) {
-                        view.toggleNothingFoundTextVisibility(true)
-                    } else {
-                        view.toggleNothingFoundTextVisibility(false)
-                    }
-                }, { e -> e.printStackTrace() })
-        )
-    }
-
-    private fun loadSpeciesInfo(character: Character) {
-        handler.manageViewDisposable(
-            speciesInfoLoader
-                .execute(character.species)
-                .doOnSuccess {
-                    viewModel.speciesName.postValue(constructCharacterSpecies(it))
-                    viewModel.languages.postValue(constructCharacterLanguages(it))
-                }
-                .flatMap {
-                    planetInfoLoader.execute(it)
-                }
-                .subscribe({
-                    viewModel.planetNames.postValue(constructPlanetNamesInfo(it))
-                    viewModel.planetPopulations.postValue(constructPlanetPopulationsInfo(it))
-                }, { e -> e.printStackTrace() })
-        )
-    }
-
-    private fun subscribeToUiEvents(view: CharacterDetailView) {
-        handler.manageViewDisposable(
-            view.getOnFilmClickObservable()
-                .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    view.openFilmDetailDialog(it)
-                }, { e ->
-                    view.showErrorToast()
-                    e.printStackTrace()
-                })
-        )
     }
 }

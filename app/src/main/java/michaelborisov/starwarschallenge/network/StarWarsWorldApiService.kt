@@ -12,6 +12,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Service which provides actual RestApi calls.
+ */
 interface StarWarsWorldApiService {
 
     @GET("people")
@@ -27,9 +30,10 @@ interface StarWarsWorldApiService {
     fun getFilmInfo(@Path("film") film: String): Single<Film>
 
     /**
-     * Companion object to create the GithubApiService
+     * Companion object to create [StarWarsWorldApiService],
+     * which can be used to perform actual requests
      */
-    companion object Factory {
+    companion object {
         fun create(): StarWarsWorldApiService {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

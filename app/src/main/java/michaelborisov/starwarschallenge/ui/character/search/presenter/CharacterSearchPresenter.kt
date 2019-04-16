@@ -3,6 +3,7 @@ package michaelborisov.starwarschallenge.ui.character.search.presenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import michaelborisov.starwarschallenge.network.ApiHelper
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
 import michaelborisov.starwarschallenge.ui.character.search.view.CharacterSearchView
@@ -21,12 +22,23 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
      */
     private val handler = RxTiPresenterDisposableHandler(this)
 
+    /**
+     * Injecting actual implementation of [ApiHelper], provided by module
+     */
     @Inject
     lateinit var apiHelper: RestStarWarsApiHelper
 
+    /**
+     * PresenterConfig to unify behaviour of presenters across the app.
+     */
     @Inject
     lateinit var presenterConfig: PresenterConfig
 
+
+    /**
+     * Stores last search query in order not to do unnecessary search,
+     * when information was just loaded on the previous step.
+     */
     private var lastQuery = "-1"
 
     private lateinit var viewModel: CharacterSearchViewModel
@@ -43,15 +55,19 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
     }
 
     private fun subscribeToUiEvents(view: CharacterSearchView) {
+        /**
+         * Handles search queries. Every time searchQuery changes - new search initialized.
+         */
         handler.manageViewDisposable(view.getSearchQueryObservable()
             .debounce(presenterConfig.textInputChangeDebounce, TimeUnit.MILLISECONDS)
+            // Filtering to continue only in case of change of searchQuery
             .filter { lastQuery != it.toString() }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { view.toggleLoadingAndRecyclerViewVisibility(false) }
             .doOnNext { lastQuery = it.toString() }
             .observeOn(Schedulers.computation())
             .flatMap {
-                LoadCharacters(apiHelper).execute(it.toString()).toObservable()
+                characterLoader.execute(it.toString()).toObservable()
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
@@ -73,6 +89,9 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
 
         )
 
+        /**
+         * Handles clicks on found [Character] items
+         */
         handler.manageViewDisposable(
             view.getOnCharacterClickObservable()
                 .debounce(presenterConfig.clickDebounce, TimeUnit.MILLISECONDS)

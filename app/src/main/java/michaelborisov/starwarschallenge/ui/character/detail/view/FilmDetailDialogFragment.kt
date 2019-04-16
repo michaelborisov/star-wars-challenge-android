@@ -9,7 +9,9 @@ import android.widget.TextView
 import michaelborisov.starwarschallenge.datamodel.Film
 import michaelborisov.starwarschallenge.R
 
-
+/**
+ * DialogFragment to display full information about film.
+ */
 class FilmDetailDialogFragment : DialogFragment() {
 
     private lateinit var film: Film

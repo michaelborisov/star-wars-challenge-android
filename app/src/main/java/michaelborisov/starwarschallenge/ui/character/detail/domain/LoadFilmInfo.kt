@@ -5,15 +5,22 @@ import michaelborisov.starwarschallenge.datamodel.Film
 import michaelborisov.starwarschallenge.network.ApiHelper
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 
+/**
+ * Class, providing functionality for loading information about [Film],
+ * in order not to use implementations of ApiHelper directly.
+ */
 class LoadFilmInfo(
     private val apiHelper: ApiHelper,
     private val urlCategory: String,
     private val urlHelper: UrlAddressHelper
 ) {
 
-    fun execute(films: List<String>): Single<List<Film>> {
+    fun execute(filmUrls: List<String>): Single<List<Film>> {
+        if(filmUrls.isEmpty()){
+            return Single.create { emitter -> emitter.onSuccess(ArrayList()) }
+        }
         val requests = mutableListOf<Single<Film>>()
-        for (film in films) {
+        for (film in filmUrls) {
             requests.add(apiHelper.getFilmInfo(getFilmIdFromUrl(film)))
         }
 

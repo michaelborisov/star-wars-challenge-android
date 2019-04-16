@@ -8,6 +8,9 @@ import michaelborisov.starwarschallenge.datamodel.Planet
 import michaelborisov.starwarschallenge.datamodel.Species
 import javax.inject.Inject
 
+/**
+ * Rest implementation of [ApiHelper] for StarWars RestApi.
+ */
 class RestStarWarsApiHelper @Inject constructor() : ApiHelper {
 
     private var apiService: StarWarsWorldApiService =

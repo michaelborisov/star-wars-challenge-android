@@ -3,10 +3,10 @@ package michaelborisov.starwarschallenge.ui.character.search.presenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
 import michaelborisov.starwarschallenge.ui.character.search.view.CharacterSearchView
 import michaelborisov.starwarschallenge.ui.character.search.viewmodel.CharacterSearchViewModel
-import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.utils.PresenterConfig
 import net.grandcentrix.thirtyinch.TiPresenter
 import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
@@ -31,9 +31,13 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
 
     private lateinit var viewModel: CharacterSearchViewModel
 
+    private lateinit var characterLoader: LoadCharacters
+
     override fun onAttachView(view: CharacterSearchView) {
         super.onAttachView(view)
         viewModel = view.viewModel
+
+        characterLoader = LoadCharacters(apiHelper)
 
         subscribeToUiEvents(view)
     }

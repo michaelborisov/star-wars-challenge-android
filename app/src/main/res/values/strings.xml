@@ -17,4 +17,8 @@
     <string name="details_text">Details:</string>
     <string name="character_search_title">Character Search</string>
     <string name="something_went_wrong">Ooops, something went wrong. Please report this problem.</string>
+
+    <string name="film_category_url">https://swapi.co/api/films/</string>
+    <string name="species_category_url">https://swapi.co/api/species/</string>
+    <string name="planet_category_url">https://swapi.co/api/planets/</string>
 </resources>

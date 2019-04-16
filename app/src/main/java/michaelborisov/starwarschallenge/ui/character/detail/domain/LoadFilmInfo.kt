@@ -3,8 +3,13 @@ package michaelborisov.starwarschallenge.ui.character.detail.domain
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Film
 import michaelborisov.starwarschallenge.network.ApiHelper
+import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 
-class LoadFilmInfo(private val apiHelper: ApiHelper) {
+class LoadFilmInfo(
+    private val apiHelper: ApiHelper,
+    private val urlCategory: String,
+    private val urlHelper: UrlAddressHelper
+) {
 
     fun execute(films: List<String>): Single<List<Film>> {
         val requests = mutableListOf<Single<Film>>()
@@ -23,9 +28,7 @@ class LoadFilmInfo(private val apiHelper: ApiHelper) {
         }
     }
 
-    private fun getFilmIdFromUrl(planetUrl: String): String {
-        var id = planetUrl.replace("https://swapi.co/api/films/", "")
-        id = id.replace("/", "")
-        return id
+    private fun getFilmIdFromUrl(filmUrl: String): String {
+        return urlHelper.getIdFromUrl(filmUrl, urlCategory)
     }
 }

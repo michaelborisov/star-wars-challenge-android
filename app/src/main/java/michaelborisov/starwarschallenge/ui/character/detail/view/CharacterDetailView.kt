@@ -22,4 +22,10 @@ interface CharacterDetailView : TiView {
 
     fun showErrorToast()
 
+    fun getFilmCategoryUrl(): String
+
+    fun getSpeciesCategoryUrl(): String
+
+    fun getPlanetCategoryUrl(): String
+
 }

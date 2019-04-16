@@ -4,13 +4,18 @@ import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Planet
 import michaelborisov.starwarschallenge.datamodel.Species
 import michaelborisov.starwarschallenge.network.ApiHelper
+import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 
-class LoadPlanetInfo(private val apiHelper: ApiHelper) {
+class LoadPlanetInfo(
+    private val apiHelper: ApiHelper,
+    private val urlCategory: String,
+    private val urlHelper: UrlAddressHelper
+) {
 
     fun execute(species: List<Species>): Single<List<Planet>> {
         val requests = mutableListOf<Single<Planet>>()
         for (sp in species) {
-            if(sp.homeworld == null){
+            if (sp.homeworld == null) {
                 return Single.create { emitter -> emitter.onSuccess(ArrayList()) }
             }
             requests.add(apiHelper.getPlanetInfo(getPlanetIdFromUrl(sp.homeworld)))
@@ -28,8 +33,6 @@ class LoadPlanetInfo(private val apiHelper: ApiHelper) {
     }
 
     private fun getPlanetIdFromUrl(planetUrl: String): String {
-        var id = planetUrl.replace("https://swapi.co/api/planets/", "")
-        id = id.replace("/", "")
-        return id
+        return urlHelper.getIdFromUrl(planetUrl, urlCategory)
     }
 }

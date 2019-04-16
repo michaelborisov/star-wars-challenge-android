@@ -1,7 +1,9 @@
 package michaelborisov.starwarschallenge.utils
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UrlAddressHelper @Inject constructor() {
 
     fun getIdFromUrl(url: String, urlCategory: String): String {

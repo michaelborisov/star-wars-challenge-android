@@ -1,7 +1,9 @@
 package michaelborisov.starwarschallenge.utils
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PresenterConfig @Inject constructor() {
 
     /**

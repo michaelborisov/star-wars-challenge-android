@@ -11,7 +11,7 @@ App follows Model-View-Presenter (MVP) architecture. For this purpose ThirtyInch
 (https://github.com/grandcentrix/ThirtyInch) was chosen. It favors the stateful Presenter and dumb View pattern.
 
 While developing, I was following SOLID principles (https://en.wikipedia.org/wiki/SOLID) and ideas, described in
-the book "Clean Architecture" (http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+the book "Clean Architecture". (http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ## 3rd party libraries:
 - Dagger2 (https://google.github.io/dagger/) is used for dependency injection.

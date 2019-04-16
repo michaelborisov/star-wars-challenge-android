@@ -14,6 +14,6 @@ While developing, I was following SOLID principles (https://en.wikipedia.org/wik
 the book "Clean Architecture" (http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ## 3rd party libraries:
-Dagger2 (https://google.github.io/dagger/) is used for dependency injection.
-Retrofit (https://square.github.io/retrofit/) is used for making internet requests.
-RxJava2 and RxBindings are used to make the application run smooth.
+- Dagger2 (https://google.github.io/dagger/) is used for dependency injection.
+- Retrofit (https://square.github.io/retrofit/) is used for making internet requests.
+- RxJava2 and RxBindings are used to make the application run smooth.

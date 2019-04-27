@@ -27,11 +27,4 @@ interface CharacterDetailView : TiView {
     fun setActivityTitle(name: String)
 
     fun showErrorToast()
-
-    fun getFilmCategoryUrl(): String
-
-    fun getSpeciesCategoryUrl(): String
-
-    fun getPlanetCategoryUrl(): String
-
 }

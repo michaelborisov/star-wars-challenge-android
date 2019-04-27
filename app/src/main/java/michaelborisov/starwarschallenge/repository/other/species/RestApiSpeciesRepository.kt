@@ -5,6 +5,7 @@ import michaelborisov.starwarschallenge.datamodel.Species
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverseRepositoryCommon
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
+import michaelborisov.starwarschallenge.utils.urlCategorySpecies
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ class RestApiSpeciesRepository @Inject constructor(
     override var urlHelper: UrlAddressHelper
 ) : SpeciesRepository, StarWarsUniverseRepositoryCommon() {
 
-    override var urlCategory = "https://swapi.co/api/species/"
+    override var urlCategory = urlCategorySpecies
 
     override fun getEntity(query: String): Single<Species> {
         return restApiHelper.getSpeciesInfo(getFilmIdFromUrl(query))

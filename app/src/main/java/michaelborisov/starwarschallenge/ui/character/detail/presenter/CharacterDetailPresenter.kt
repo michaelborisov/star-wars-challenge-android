@@ -44,13 +44,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
      */
     @Inject
     lateinit var presenterConfig: PresenterConfig
-
-    /**
-     * Helper work with urls.
-     */
-    @Inject
-    lateinit var urlAddressHelper: UrlAddressHelper
-
+    
     private lateinit var currentCharacter: Character
 
     private lateinit var viewModel: CharacterDetailViewModel

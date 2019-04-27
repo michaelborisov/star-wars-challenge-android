@@ -5,6 +5,7 @@ import michaelborisov.starwarschallenge.datamodel.Film
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverseRepositoryCommon
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
+import michaelborisov.starwarschallenge.utils.urlCategoryFilms
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ class RestApiFilmRepository @Inject constructor(
     override var urlHelper: UrlAddressHelper
 ) : FilmRepository, StarWarsUniverseRepositoryCommon() {
 
-    override var urlCategory = "https://swapi.co/api/films/"
+    override var urlCategory = urlCategoryFilms
 
     override fun getEntity(query: String): Single<Film> {
         return restApiHelper.getFilmInfo(getFilmIdFromUrl(query))

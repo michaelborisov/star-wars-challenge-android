@@ -23,4 +23,4 @@ the book "Clean Architecture". (http://blog.cleancoder.com/uncle-bob/2012/08/13/
 
 
 ## Tests:
-For now, there are no androidTests (only the default one), but there are some "normal" tests.
+For now, there are no androidTests (only the default one), but there are some unit tests.

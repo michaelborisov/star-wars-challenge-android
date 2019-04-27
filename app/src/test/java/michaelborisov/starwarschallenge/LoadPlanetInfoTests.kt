@@ -1,8 +1,8 @@
 package michaelborisov.starwarschallenge
 
 import junit.framework.Assert
-import michaelborisov.starwarschallenge.network.ApiHelper
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.repository.other.planet.RestApiPlanetRepository
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 import org.junit.Before
@@ -11,18 +11,13 @@ import org.junit.Test
 class LoadPlanetInfoTests {
 
     private lateinit var planetLoader: LoadPlanetInfo
-    private lateinit var apiHelper: ApiHelper
-    private lateinit var urlHelper: UrlAddressHelper
 
     @Before
     fun setUp() {
-        apiHelper = RestStarWarsApiHelper()
-        urlHelper = UrlAddressHelper()
-        planetLoader = LoadPlanetInfo(
-            apiHelper,
-            "https://swapi.co/api/planets/",
-            urlHelper
-        )
+        val apiHelper = RestStarWarsApiHelper()
+        val urlHelper = UrlAddressHelper()
+        val planetRepository = RestApiPlanetRepository(apiHelper, urlHelper)
+        planetLoader = LoadPlanetInfo(planetRepository)
     }
 
     @Test(timeout = 15000)
@@ -45,7 +40,8 @@ class LoadPlanetInfoTests {
         val planets = planetLoader.execute(
             listOf(
                 "https://swapi.co/api/planets/1/",
-                "https://swapi.co/api/planets/2/")
+                "https://swapi.co/api/planets/2/"
+            )
         ).blockingGet()
         Assert.assertTrue(planets.isNotEmpty())
         Assert.assertTrue(planets.size == 2)

@@ -5,7 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.datamodel.Planet
 import michaelborisov.starwarschallenge.datamodel.Species
-import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
+import michaelborisov.starwarschallenge.repository.other.planet.RestApiPlanetRepository
+import michaelborisov.starwarschallenge.repository.other.species.RestApiSpeciesRepository
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
@@ -29,7 +31,13 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     private val handler = RxTiPresenterDisposableHandler(this)
 
     @Inject
-    lateinit var apiHelper: RestStarWarsApiHelper
+    lateinit var speciesRepository: RestApiSpeciesRepository
+
+    @Inject
+    lateinit var filmRepository: RestApiFilmRepository
+
+    @Inject
+    lateinit var planetRepository: RestApiPlanetRepository
 
     /**
      * PresenterConfig to unify behaviour of presenters across the app.
@@ -61,7 +69,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         viewModel = view.viewModel
         currentCharacter = viewModel.character
 
-        initInfoLoaders(view)
+        initInfoLoaders()
 
         loadSpeciesInfo(view, currentCharacter)
         loadFilmInfo(view, currentCharacter)
@@ -71,24 +79,12 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         subscribeToUiEvents(view)
     }
 
-    private fun initInfoLoaders(view: CharacterDetailView) {
-        filmInfoLoader = LoadFilmInfo(
-            apiHelper,
-            view.getFilmCategoryUrl(),
-            urlAddressHelper
-        )
+    private fun initInfoLoaders() {
+        filmInfoLoader = LoadFilmInfo(filmRepository)
 
-        speciesInfoLoader = LoadSpeciesInfo(
-            apiHelper,
-            view.getSpeciesCategoryUrl(),
-            urlAddressHelper
-        )
+        speciesInfoLoader = LoadSpeciesInfo(speciesRepository)
 
-        planetInfoLoader = LoadPlanetInfo(
-            apiHelper,
-            view.getPlanetCategoryUrl(),
-            urlAddressHelper
-        )
+        planetInfoLoader = LoadPlanetInfo(planetRepository)
     }
 
     /**

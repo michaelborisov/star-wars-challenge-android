@@ -1,8 +1,8 @@
 package michaelborisov.starwarschallenge
 
 import junit.framework.Assert
-import michaelborisov.starwarschallenge.network.ApiHelper
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 import org.junit.Before
@@ -11,18 +11,13 @@ import org.junit.Test
 class LoadFilmInfoTests {
 
     private lateinit var filmLoader: LoadFilmInfo
-    private lateinit var apiHelper: ApiHelper
-    private lateinit var urlHelper: UrlAddressHelper
 
     @Before
     fun setUp() {
-        apiHelper = RestStarWarsApiHelper()
-        urlHelper = UrlAddressHelper()
-        filmLoader = LoadFilmInfo(
-            apiHelper,
-            "https://swapi.co/api/films/",
-            urlHelper
-        )
+        val apiHelper = RestStarWarsApiHelper()
+        val urlHelper = UrlAddressHelper()
+        val filmRepository = RestApiFilmRepository(apiHelper, urlHelper)
+        filmLoader = LoadFilmInfo(filmRepository)
     }
 
     @Test(timeout = 15000)
@@ -45,7 +40,8 @@ class LoadFilmInfoTests {
         val films = filmLoader.execute(
             listOf(
                 "https://swapi.co/api/films/1/",
-                "https://swapi.co/api/films/2/")
+                "https://swapi.co/api/films/2/"
+            )
         ).blockingGet()
         Assert.assertTrue(films.isNotEmpty())
         Assert.assertTrue(films.size == 2)

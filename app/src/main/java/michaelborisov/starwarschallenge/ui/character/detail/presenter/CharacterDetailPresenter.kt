@@ -9,8 +9,7 @@ import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
-import michaelborisov.starwarschallenge.ui.character.detail.repository.FilmRepository
-import michaelborisov.starwarschallenge.ui.character.detail.repository.RestApiFilmRepository
+import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
 import michaelborisov.starwarschallenge.ui.character.detail.view.CharacterDetailView
 import michaelborisov.starwarschallenge.ui.character.detail.viewmodel.CharacterDetailViewModel
 import michaelborisov.starwarschallenge.utils.*

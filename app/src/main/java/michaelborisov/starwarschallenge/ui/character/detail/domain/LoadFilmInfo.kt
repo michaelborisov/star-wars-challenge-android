@@ -2,7 +2,7 @@ package michaelborisov.starwarschallenge.ui.character.detail.domain
 
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Film
-import michaelborisov.starwarschallenge.ui.character.detail.repository.FilmRepository
+import michaelborisov.starwarschallenge.repository.other.film.FilmRepository
 
 /**
  * Class, providing functionality for loading information about [Film].

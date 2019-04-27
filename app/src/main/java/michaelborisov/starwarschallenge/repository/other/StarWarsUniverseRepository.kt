@@ -1,4 +1,4 @@
-package michaelborisov.starwarschallenge.ui.character.detail.repository
+package michaelborisov.starwarschallenge.repository.other
 
 import io.reactivex.Single
 

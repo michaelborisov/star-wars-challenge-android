@@ -1,4 +1,4 @@
-package michaelborisov.starwarschallenge.ui.character.search.repository
+package michaelborisov.starwarschallenge.repository.character
 
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Character

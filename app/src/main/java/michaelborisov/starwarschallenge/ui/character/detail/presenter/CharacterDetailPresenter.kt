@@ -6,10 +6,11 @@ import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.datamodel.Planet
 import michaelborisov.starwarschallenge.datamodel.Species
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
+import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
+import michaelborisov.starwarschallenge.repository.other.planet.RestApiPlanetRepository
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
-import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
 import michaelborisov.starwarschallenge.ui.character.detail.view.CharacterDetailView
 import michaelborisov.starwarschallenge.ui.character.detail.viewmodel.CharacterDetailViewModel
 import michaelborisov.starwarschallenge.utils.*
@@ -34,6 +35,9 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
 
     @Inject
     lateinit var filmRepository: RestApiFilmRepository
+
+    @Inject
+    lateinit var planetRepository: RestApiPlanetRepository
 
     /**
      * PresenterConfig to unify behaviour of presenters across the app.
@@ -84,11 +88,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
             urlAddressHelper
         )
 
-        planetInfoLoader = LoadPlanetInfo(
-            apiHelper,
-            view.getPlanetCategoryUrl(),
-            urlAddressHelper
-        )
+        planetInfoLoader = LoadPlanetInfo(planetRepository)
     }
 
     /**

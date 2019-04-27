@@ -8,15 +8,11 @@ import javax.inject.Inject
 
 class RestApiFilmRepository @Inject constructor(
     private val restApiHelper: RestStarWarsApiHelper,
-    private val urlHelper: UrlAddressHelper) : FilmRepository {
+    override val urlHelper: UrlAddressHelper) : FilmRepository {
 
-    private val urlCategory = "https://swapi.co/api/films/"
+    override val urlCategory = "https://swapi.co/api/films/"
 
     override fun getEntity(query: String): Single<Film> {
         return restApiHelper.getFilmInfo(getFilmIdFromUrl(query))
-    }
-
-    private fun getFilmIdFromUrl(filmUrl: String): String {
-        return urlHelper.getIdFromUrl(filmUrl, urlCategory)
     }
 }

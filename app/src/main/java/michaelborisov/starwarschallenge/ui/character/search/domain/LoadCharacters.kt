@@ -2,16 +2,15 @@ package michaelborisov.starwarschallenge.ui.character.search.domain
 
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Character
-import michaelborisov.starwarschallenge.datamodel.Film
-import michaelborisov.starwarschallenge.network.ApiHelper
+import michaelborisov.starwarschallenge.ui.character.search.repository.CharacterRepository
 
 /**
  * Class, providing functionality for loading information about [Character],
- * in order not to use implementations of ApiHelper directly.
+ * from CharacterRepository.
  */
-class LoadCharacters(private val apiHelper: ApiHelper) {
+class LoadCharacters(private val characterRepository: CharacterRepository) {
 
     fun execute(searchQuery: String): Single<List<Character>> {
-        return apiHelper.searchCharactersByName(searchQuery)
+        return characterRepository.getCharacterListByName(searchQuery)
     }
 }

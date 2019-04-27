@@ -16,7 +16,7 @@ class RestStarWarsApiHelper @Inject constructor() : ApiHelper {
     private var apiService: StarWarsWorldApiService =
         StarWarsWorldApiService.create()
 
-    override fun searchCharactersByName(name: String): Single<List<Character>> {
+    override fun getCharacterListByName(name: String): Single<List<Character>> {
         return apiService.searchCharacterByName(name)
             .subscribeOn(Schedulers.io())
             .flatMap {

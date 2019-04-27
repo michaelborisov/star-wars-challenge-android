@@ -14,7 +14,7 @@ interface ApiHelper {
     /**
      * Performs search of [Character] by name, provided as a [String].
      */
-    fun searchCharactersByName(name: String): Single<List<Character>>
+    fun getCharacterListByName(name: String): Single<List<Character>>
 
     /**
      * Performs search of [Species] by id, provided as a [String]

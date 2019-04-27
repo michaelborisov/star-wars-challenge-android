@@ -1,9 +1,8 @@
 package michaelborisov.starwarschallenge
 
 import junit.framework.Assert
-import michaelborisov.starwarschallenge.network.ApiHelper
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
+import michaelborisov.starwarschallenge.repository.other.species.RestApiSpeciesRepository
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 import org.junit.Before
@@ -12,18 +11,13 @@ import org.junit.Test
 class LoadSpeciesInfoTests {
 
     private lateinit var speciesLoader: LoadSpeciesInfo
-    private lateinit var apiHelper: ApiHelper
-    private lateinit var urlHelper: UrlAddressHelper
 
     @Before
     fun setUp() {
-        apiHelper = RestStarWarsApiHelper()
-        urlHelper = UrlAddressHelper()
-        speciesLoader = LoadSpeciesInfo(
-            apiHelper,
-            "https://swapi.co/api/species/",
-            urlHelper
-        )
+        val apiHelper = RestStarWarsApiHelper()
+        val urlHelper = UrlAddressHelper()
+        val speciesRepository = RestApiSpeciesRepository(apiHelper, urlHelper)
+        speciesLoader = LoadSpeciesInfo(speciesRepository)
     }
 
     @Test(timeout = 15000)
@@ -46,7 +40,8 @@ class LoadSpeciesInfoTests {
         val species = speciesLoader.execute(
             listOf(
                 "https://swapi.co/api/species/1/",
-                "https://swapi.co/api/species/2/")
+                "https://swapi.co/api/species/2/"
+            )
         ).blockingGet()
         Assert.assertTrue(species.isNotEmpty())
         Assert.assertTrue(species.size == 2)

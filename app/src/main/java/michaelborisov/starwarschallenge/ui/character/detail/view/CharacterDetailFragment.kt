@@ -12,9 +12,9 @@ import android.widget.Toast
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.character_detail_fragment.*
+import michaelborisov.starwarschallenge.R
 import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.datamodel.Film
-import michaelborisov.starwarschallenge.R
 import michaelborisov.starwarschallenge.ui.character.detail.adapter.FilmDetailAdapter
 import michaelborisov.starwarschallenge.ui.character.detail.injection.DaggerCharacterDetailComponent
 import michaelborisov.starwarschallenge.ui.character.detail.presenter.CharacterDetailPresenter
@@ -78,7 +78,9 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CharacterDetailViewModel::class.java)
-        viewModel.character = character
+        if (::character.isInitialized) {
+            viewModel.character = character
+        }
 
         subscribeToUiUpdates()
     }
@@ -194,18 +196,6 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
             rvDetailFilms.visibility = View.GONE
             tvDetailNothingPlaceHolder.visibility = View.GONE
         }
-    }
-
-    override fun getFilmCategoryUrl(): String {
-        return getString(R.string.film_category_url)
-    }
-
-    override fun getSpeciesCategoryUrl(): String {
-        return getString(R.string.species_category_url)
-    }
-
-    override fun getPlanetCategoryUrl(): String {
-        return getString(R.string.planet_category_url)
     }
 
     private fun initializeInjector() {

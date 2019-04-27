@@ -9,6 +9,8 @@ import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
 import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
+import michaelborisov.starwarschallenge.ui.character.detail.repository.FilmRepository
+import michaelborisov.starwarschallenge.ui.character.detail.repository.RestApiFilmRepository
 import michaelborisov.starwarschallenge.ui.character.detail.view.CharacterDetailView
 import michaelborisov.starwarschallenge.ui.character.detail.viewmodel.CharacterDetailViewModel
 import michaelborisov.starwarschallenge.utils.*
@@ -30,6 +32,9 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
 
     @Inject
     lateinit var apiHelper: RestStarWarsApiHelper
+
+    @Inject
+    lateinit var filmRepository: RestApiFilmRepository
 
     /**
      * PresenterConfig to unify behaviour of presenters across the app.
@@ -72,11 +77,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     }
 
     private fun initInfoLoaders(view: CharacterDetailView) {
-        filmInfoLoader = LoadFilmInfo(
-            apiHelper,
-            view.getFilmCategoryUrl(),
-            urlAddressHelper
-        )
+        filmInfoLoader = LoadFilmInfo(filmRepository)
 
         speciesInfoLoader = LoadSpeciesInfo(
             apiHelper,

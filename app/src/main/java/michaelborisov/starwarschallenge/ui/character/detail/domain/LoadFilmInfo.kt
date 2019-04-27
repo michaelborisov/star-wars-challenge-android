@@ -2,26 +2,20 @@ package michaelborisov.starwarschallenge.ui.character.detail.domain
 
 import io.reactivex.Single
 import michaelborisov.starwarschallenge.datamodel.Film
-import michaelborisov.starwarschallenge.network.ApiHelper
-import michaelborisov.starwarschallenge.utils.UrlAddressHelper
+import michaelborisov.starwarschallenge.ui.character.detail.repository.FilmRepository
 
 /**
- * Class, providing functionality for loading information about [Film],
- * in order not to use implementations of ApiHelper directly.
+ * Class, providing functionality for loading information about [Film].
  */
-class LoadFilmInfo(
-    private val apiHelper: ApiHelper,
-    private val urlCategory: String,
-    private val urlHelper: UrlAddressHelper
-) {
+class LoadFilmInfo(private val filmRepository: FilmRepository) {
 
     fun execute(filmUrls: List<String>): Single<List<Film>> {
-        if(filmUrls.isEmpty()){
+        if (filmUrls.isEmpty()) {
             return Single.create { emitter -> emitter.onSuccess(ArrayList()) }
         }
         val requests = mutableListOf<Single<Film>>()
         for (film in filmUrls) {
-            requests.add(apiHelper.getFilmInfo(getFilmIdFromUrl(film)))
+            requests.add(filmRepository.getEntity(film))
         }
 
         return Single.zip(requests) { filmResults ->
@@ -33,9 +27,5 @@ class LoadFilmInfo(
             }
             return@zip result
         }
-    }
-
-    private fun getFilmIdFromUrl(filmUrl: String): String {
-        return urlHelper.getIdFromUrl(filmUrl, urlCategory)
     }
 }

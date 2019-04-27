@@ -1,5 +1,8 @@
 # StarWars challenge Android.
 
+## Update:
+The architecture of the application has been changed because of the found mistake.
+
 ## Description:
 This app connects to the StarWars API (https://swapi.co/) and requests information about StarWars Universe
 according to user needs. The workflow is as follows: user lands on the character search screen and can

@@ -1,7 +1,11 @@
 package michaelborisov.starwarschallenge.repository.other.planet
 
 import michaelborisov.starwarschallenge.datamodel.Planet
-import michaelborisov.starwarschallenge.repository.other.StarWarsUniverseRepository
+import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverseRepository
 
-interface PlanetRepository : StarWarsUniverseRepository<Planet> {
+/**
+ * [PlanetRepository] - should be used for implementation of all [Planet] repositories
+ */
+interface PlanetRepository :
+    StarWarsUniverseRepository<Planet> {
 }

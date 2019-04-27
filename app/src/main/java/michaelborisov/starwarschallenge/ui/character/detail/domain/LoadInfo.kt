@@ -1,8 +1,11 @@
 package michaelborisov.starwarschallenge.ui.character.detail.domain
 
 import io.reactivex.Single
-import michaelborisov.starwarschallenge.repository.other.StarWarsUniverseRepository
+import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverseRepository
 
+/**
+ * Class for unification of behaviour of Load use-cases
+ */
 @Suppress("UNCHECKED_CAST")
 abstract class LoadInfo<Entity>(val repository: StarWarsUniverseRepository<Entity>) {
 

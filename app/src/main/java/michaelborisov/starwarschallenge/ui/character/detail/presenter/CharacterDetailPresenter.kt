@@ -44,8 +44,8 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
      */
     @Inject
     lateinit var presenterConfig: PresenterConfig
-    
-    private lateinit var currentCharacter: Character
+
+    lateinit var currentCharacter: Character
 
     private lateinit var viewModel: CharacterDetailViewModel
 
@@ -61,7 +61,6 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     override fun onAttachView(view: CharacterDetailView) {
         super.onAttachView(view)
         viewModel = view.viewModel
-        currentCharacter = viewModel.character
 
         initInfoLoaders()
 
@@ -85,7 +84,7 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
      * Submit values which are already available to the View via ViewModel.
      */
     private fun updateUiElements() {
-        viewModel.charaterName.postValue(currentCharacter.name)
+        viewModel.characterName.postValue(currentCharacter.name)
         viewModel.characterBirthYear.postValue(currentCharacter.birth_year)
         viewModel.characterHeight.postValue(constructCharacterHeightStringValue(currentCharacter))
     }

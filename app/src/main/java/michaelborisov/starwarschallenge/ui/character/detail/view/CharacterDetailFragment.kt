@@ -2,6 +2,7 @@ package michaelborisov.starwarschallenge.ui.character.detail.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -46,10 +47,12 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
         return presenter
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
         initializeInjector()
-        super.onCreate(savedInstanceState)
+        if (::character.isInitialized) {
+            presenter.currentCharacter = character
+        }
     }
 
     override fun onCreateView(
@@ -78,15 +81,12 @@ class CharacterDetailFragment : TiFragment<CharacterDetailPresenter, CharacterDe
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CharacterDetailViewModel::class.java)
-        if (::character.isInitialized) {
-            viewModel.character = character
-        }
 
         subscribeToUiUpdates()
     }
 
     private fun subscribeToUiUpdates() {
-        viewModel.charaterName.observe(this, Observer {
+        viewModel.characterName.observe(this, Observer {
             tvDetailCharacterName.text = it
         })
 

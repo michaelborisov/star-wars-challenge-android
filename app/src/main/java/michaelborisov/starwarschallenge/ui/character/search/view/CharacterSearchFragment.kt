@@ -52,8 +52,12 @@ class CharacterSearchFragment :
         return characterSearchPresenter
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
         initializeInjector()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         foundCharactersAdapter.setOnCharacterClickListener(onCharacterClickPublishRelay::accept)
     }

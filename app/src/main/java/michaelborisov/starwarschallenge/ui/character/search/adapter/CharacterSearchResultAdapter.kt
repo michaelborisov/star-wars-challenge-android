@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.R
+import michaelborisov.starwarschallenge.datamodel.Character
 
 /**
  * Adapter for RecyclerView used to display results of search of [Character]s

@@ -6,6 +6,4 @@ import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverse
 /**
  * [SpeciesRepository] - should be used for implementation of all [Species] repositories
  */
-interface SpeciesRepository :
-    StarWarsUniverseRepository<Species> {
-}
+interface SpeciesRepository : StarWarsUniverseRepository<Species>

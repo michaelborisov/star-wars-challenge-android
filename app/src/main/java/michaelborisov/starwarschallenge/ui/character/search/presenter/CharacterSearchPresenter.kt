@@ -4,8 +4,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import michaelborisov.starwarschallenge.network.ApiHelper
-import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
 import michaelborisov.starwarschallenge.repository.character.RestApiCharacterRepository
+import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
 import michaelborisov.starwarschallenge.ui.character.search.view.CharacterSearchView
 import michaelborisov.starwarschallenge.ui.character.search.viewmodel.CharacterSearchViewModel
 import michaelborisov.starwarschallenge.utils.PresenterConfig

@@ -1,4 +1,4 @@
-package michaelborisov.starwarschallenge
+package michaelborisov.starwarschallenge.loader
 
 import junit.framework.Assert
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper

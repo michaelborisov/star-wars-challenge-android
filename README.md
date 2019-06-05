@@ -1,7 +1,5 @@
 # StarWars challenge Android.
 
-## Update:
-The architecture of the application has been changed because of the found mistake.
 
 ## Description:
 This app connects to the StarWars API (https://swapi.co/) and requests information about StarWars Universe
@@ -20,7 +18,8 @@ the book "Clean Architecture". (http://blog.cleancoder.com/uncle-bob/2012/08/13/
 - Dagger2 (https://google.github.io/dagger/) is used for dependency injection.
 - Retrofit (https://square.github.io/retrofit/) is used for making internet requests.
 - RxJava2 and RxBindings are used to make the application run smooth.
+- Kakao (https://github.com/agoda-com/Kakao) is used for writing more readable Android Tests.
 
 
 ## Tests:
-For now, there are no androidTests (only the default one), but there are some unit tests.
+Both unit tests and androidTests can be found in the project.

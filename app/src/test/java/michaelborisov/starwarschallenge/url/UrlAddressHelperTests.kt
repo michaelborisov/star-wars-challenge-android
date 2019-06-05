@@ -1,4 +1,4 @@
-package michaelborisov.starwarschallenge
+package michaelborisov.starwarschallenge.url
 
 import junit.framework.Assert
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
@@ -7,7 +7,7 @@ import org.junit.Test
 
 class UrlAddressHelperTests {
 
-    lateinit var urlHelper: UrlAddressHelper
+    private lateinit var urlHelper: UrlAddressHelper
 
     @Before
     fun setUp() {

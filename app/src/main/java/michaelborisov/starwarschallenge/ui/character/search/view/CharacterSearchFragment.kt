@@ -15,8 +15,8 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.character_search_fragment.*
-import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.R
+import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.ui.character.detail.view.CharacterDetailFragment
 import michaelborisov.starwarschallenge.ui.character.search.adapter.CharacterSearchResultAdapter
 import michaelborisov.starwarschallenge.ui.character.search.injection.DaggerCharacterSearchComponent

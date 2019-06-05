@@ -6,6 +6,4 @@ import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverse
 /**
  * [PlanetRepository] - should be used for implementation of all [Planet] repositories
  */
-interface PlanetRepository :
-    StarWarsUniverseRepository<Planet> {
-}
+interface PlanetRepository : StarWarsUniverseRepository<Planet>

@@ -6,6 +6,4 @@ import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverse
 /**
  * [FilmRepository] - should be used for implementation of all [Film] repositories
  */
-interface FilmRepository :
-    StarWarsUniverseRepository<Film> {
-}
+interface FilmRepository : StarWarsUniverseRepository<Film>

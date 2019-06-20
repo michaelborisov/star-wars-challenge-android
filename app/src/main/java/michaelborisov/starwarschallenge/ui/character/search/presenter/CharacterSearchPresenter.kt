@@ -3,9 +3,7 @@ package michaelborisov.starwarschallenge.ui.character.search.presenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import michaelborisov.starwarschallenge.network.ApiHelper
-import michaelborisov.starwarschallenge.repository.character.RestApiCharacterRepository
-import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
+import michaelborisov.starwarschallenge.ui.character.search.domain.CharacterLoader
 import michaelborisov.starwarschallenge.ui.character.search.view.CharacterSearchView
 import michaelborisov.starwarschallenge.ui.character.search.viewmodel.CharacterSearchViewModel
 import michaelborisov.starwarschallenge.utils.PresenterConfig
@@ -23,12 +21,6 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
     private val handler = RxTiPresenterDisposableHandler(this)
 
     /**
-     * Injecting actual implementation of [ApiHelper], provided by module
-     */
-    @Inject
-    lateinit var characterRepository: RestApiCharacterRepository
-
-    /**
      * PresenterConfig to unify behaviour of presenters across the app.
      */
     @Inject
@@ -43,13 +35,13 @@ class CharacterSearchPresenter : TiPresenter<CharacterSearchView>() {
 
     private lateinit var viewModel: CharacterSearchViewModel
 
-    private lateinit var characterLoader: LoadCharacters
+    @Inject
+    lateinit var characterLoader: CharacterLoader
 
     override fun onAttachView(view: CharacterSearchView) {
         super.onAttachView(view)
         viewModel = view.viewModel
 
-        characterLoader = LoadCharacters(characterRepository)
 
         subscribeToUiEvents(view)
     }

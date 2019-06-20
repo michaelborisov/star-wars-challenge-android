@@ -3,19 +3,19 @@ package michaelborisov.starwarschallenge.loader
 import junit.framework.Assert
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.repository.character.RestApiCharacterRepository
-import michaelborisov.starwarschallenge.ui.character.search.domain.LoadCharacters
+import michaelborisov.starwarschallenge.ui.character.search.domain.CharacterLoader
 import org.junit.Before
 import org.junit.Test
 
 class LoadCharacterTests {
 
-    private lateinit var characterLoader: LoadCharacters
+    private lateinit var characterLoader: CharacterLoader
 
     @Before
     fun setUp() {
         val apiHelper = RestStarWarsApiHelper()
         val characterRepository = RestApiCharacterRepository(apiHelper)
-        characterLoader = LoadCharacters(characterRepository)
+        characterLoader = CharacterLoader(characterRepository)
     }
 
     @Test(timeout = 15000)

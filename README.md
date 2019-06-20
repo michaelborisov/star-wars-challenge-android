@@ -11,7 +11,7 @@ enter the name of the desired character. When the character is found - user can 
 App follows Model-View-Presenter-View-Model (MVPVM) architecture. For this purpose following libraries were used:
 - ThirtyInch library (https://github.com/grandcentrix/ThirtyInch).
 - ViewModel (https://developer.android.com/topic/libraries/architecture/viewmodel). 
-It favors the stateful Presenter and dumb View pattern.
+This architecture favors the stateful Presenter and dumb View pattern.
 
 While developing, I was following SOLID principles (https://en.wikipedia.org/wiki/SOLID) and ideas, described in
 the book "Clean Architecture". (http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)

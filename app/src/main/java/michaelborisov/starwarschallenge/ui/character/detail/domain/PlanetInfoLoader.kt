@@ -6,4 +6,4 @@ import michaelborisov.starwarschallenge.repository.other.planet.PlanetRepository
 /**
  * Class, providing functionality for loading information about [Planet].
  */
-class LoadPlanetInfo(planetRepository: PlanetRepository) : LoadInfo<Planet>(planetRepository)
+class PlanetInfoLoader(planetRepository: PlanetRepository) : InfoLoader<Planet>(planetRepository)

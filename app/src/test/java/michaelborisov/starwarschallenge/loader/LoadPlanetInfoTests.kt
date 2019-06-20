@@ -3,21 +3,21 @@ package michaelborisov.starwarschallenge.loader
 import junit.framework.Assert
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.repository.other.planet.RestApiPlanetRepository
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
+import michaelborisov.starwarschallenge.ui.character.detail.domain.PlanetInfoLoader
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 import org.junit.Before
 import org.junit.Test
 
 class LoadPlanetInfoTests {
 
-    private lateinit var planetLoader: LoadPlanetInfo
+    private lateinit var planetLoader: PlanetInfoLoader
 
     @Before
     fun setUp() {
         val apiHelper = RestStarWarsApiHelper()
         val urlHelper = UrlAddressHelper()
         val planetRepository = RestApiPlanetRepository(apiHelper, urlHelper)
-        planetLoader = LoadPlanetInfo(planetRepository)
+        planetLoader = PlanetInfoLoader(planetRepository)
     }
 
     @Test(timeout = 15000)

@@ -5,12 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import michaelborisov.starwarschallenge.datamodel.Character
 import michaelborisov.starwarschallenge.datamodel.Planet
 import michaelborisov.starwarschallenge.datamodel.Species
-import michaelborisov.starwarschallenge.repository.other.film.RestApiFilmRepository
-import michaelborisov.starwarschallenge.repository.other.planet.RestApiPlanetRepository
-import michaelborisov.starwarschallenge.repository.other.species.RestApiSpeciesRepository
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadFilmInfo
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadPlanetInfo
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
+import michaelborisov.starwarschallenge.ui.character.detail.domain.FilmInfoLoader
+import michaelborisov.starwarschallenge.ui.character.detail.domain.PlanetInfoLoader
+import michaelborisov.starwarschallenge.ui.character.detail.domain.SpeciesInfoLoader
 import michaelborisov.starwarschallenge.ui.character.detail.view.CharacterDetailView
 import michaelborisov.starwarschallenge.ui.character.detail.viewmodel.CharacterDetailViewModel
 import michaelborisov.starwarschallenge.utils.*
@@ -30,15 +27,6 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
      */
     private val handler = RxTiPresenterDisposableHandler(this)
 
-    @Inject
-    lateinit var speciesRepository: RestApiSpeciesRepository
-
-    @Inject
-    lateinit var filmRepository: RestApiFilmRepository
-
-    @Inject
-    lateinit var planetRepository: RestApiPlanetRepository
-
     /**
      * PresenterConfig to unify behaviour of presenters across the app.
      */
@@ -52,17 +40,18 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
     /**
      * Block of information loaders, required on the page.
      */
-    private lateinit var filmInfoLoader: LoadFilmInfo
+    @Inject
+    lateinit var filmInfoLoader: FilmInfoLoader
 
-    private lateinit var planetInfoLoader: LoadPlanetInfo
+    @Inject
+    lateinit var planetInfoLoader: PlanetInfoLoader
 
-    private lateinit var speciesInfoLoader: LoadSpeciesInfo
+    @Inject
+    lateinit var speciesInfoLoader: SpeciesInfoLoader
 
     override fun onAttachView(view: CharacterDetailView) {
         super.onAttachView(view)
         viewModel = view.viewModel
-
-        initInfoLoaders()
 
         loadSpeciesInfo(view, currentCharacter)
         loadFilmInfo(view, currentCharacter)
@@ -70,14 +59,6 @@ class CharacterDetailPresenter : TiPresenter<CharacterDetailView>() {
         updateUiElements()
         view.setActivityTitle(currentCharacter.name)
         subscribeToUiEvents(view)
-    }
-
-    private fun initInfoLoaders() {
-        filmInfoLoader = LoadFilmInfo(filmRepository)
-
-        speciesInfoLoader = LoadSpeciesInfo(speciesRepository)
-
-        planetInfoLoader = LoadPlanetInfo(planetRepository)
     }
 
     /**

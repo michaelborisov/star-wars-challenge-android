@@ -3,21 +3,21 @@ package michaelborisov.starwarschallenge.loader
 import junit.framework.Assert
 import michaelborisov.starwarschallenge.network.RestStarWarsApiHelper
 import michaelborisov.starwarschallenge.repository.other.species.RestApiSpeciesRepository
-import michaelborisov.starwarschallenge.ui.character.detail.domain.LoadSpeciesInfo
+import michaelborisov.starwarschallenge.ui.character.detail.domain.SpeciesInfoLoader
 import michaelborisov.starwarschallenge.utils.UrlAddressHelper
 import org.junit.Before
 import org.junit.Test
 
 class LoadSpeciesInfoTests {
 
-    private lateinit var speciesLoader: LoadSpeciesInfo
+    private lateinit var speciesLoader: SpeciesInfoLoader
 
     @Before
     fun setUp() {
         val apiHelper = RestStarWarsApiHelper()
         val urlHelper = UrlAddressHelper()
         val speciesRepository = RestApiSpeciesRepository(apiHelper, urlHelper)
-        speciesLoader = LoadSpeciesInfo(speciesRepository)
+        speciesLoader = SpeciesInfoLoader(speciesRepository)
     }
 
     @Test(timeout = 15000)

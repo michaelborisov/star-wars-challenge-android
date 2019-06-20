@@ -6,4 +6,4 @@ import michaelborisov.starwarschallenge.repository.other.film.FilmRepository
 /**
  * Class, providing functionality for loading information about [Film].
  */
-class LoadFilmInfo(filmRepository: FilmRepository) : LoadInfo<Film>(filmRepository)
+class FilmInfoLoader(filmRepository: FilmRepository) : InfoLoader<Film>(filmRepository)

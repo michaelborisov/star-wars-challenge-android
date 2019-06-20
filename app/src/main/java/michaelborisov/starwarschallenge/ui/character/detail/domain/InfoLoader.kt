@@ -7,7 +7,7 @@ import michaelborisov.starwarschallenge.repository.other.common.StarWarsUniverse
  * Class for unification of behaviour of Load use-cases
  */
 @Suppress("UNCHECKED_CAST")
-abstract class LoadInfo<Entity>(val repository: StarWarsUniverseRepository<Entity>) {
+abstract class InfoLoader<Entity>(val repository: StarWarsUniverseRepository<Entity>) {
 
     fun execute(urls: List<String>): Single<List<Entity>> {
         if (urls.isEmpty()) {
